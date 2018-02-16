@@ -14,27 +14,32 @@ void intercambio(int *a,int min,int i);
 double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 
 int main(int argc, char** argv) {
-	//Variables para calcular tiempos
-	LARGE_INTEGER t_ini, t_fin;
-  	double secs;
-  	//
-	int i,j,n,*a;
-	cout<<"Digite la dimesion del arreglo: ";
-	cin>>n;
-	srand(time(NULL));
-	a = new int[n];  //se inicializa el arreglo
-	llenarArreglo(a,i,n); //se llena el arreglo
-	cout<<"Mostrando el arreglo: \n";
-	mostrarArreglo(a,i,n); //se muestra el arreglo
-	system("pause");
-	QueryPerformanceCounter(&t_ini); //Midiendo tiempos
-	ordenamientoSeleccion(a,i,j,n); //se ordena el arreglo
-	QueryPerformanceCounter(&t_fin);
-	cout<<"Mostrando arreglo ordenado: \n";
-	mostrarArreglo(a,i,n); //se muestra el arreglo;
-	secs = performancecounter_diff(&t_fin,&t_ini)*1000.0;
-	cout<<"\nTiempo total: "<<secs<<"\n";
-	delete a;
+	int c = 1;
+	while(c=1){
+		//Variables para calcular tiempos
+		LARGE_INTEGER t_ini, t_fin;
+  		double secs;
+  		//
+		int i,j,n,*a;
+		cout<<"Digite la dimesion del arreglo: ";
+		cin>>n;
+		srand(time(NULL));
+		a = new int[n];  //se inicializa el arreglo
+		llenarArreglo(a,i,n); //se llena el arreglo
+		cout<<"Mostrando el arreglo: \n";
+		mostrarArreglo(a,i,n); //se muestra el arreglo
+		system("pause");
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+		ordenamientoSeleccion(a,i,j,n); //se ordena el arreglo
+		QueryPerformanceCounter(&t_fin);
+		cout<<"Mostrando arreglo ordenado: \n";
+		mostrarArreglo(a,i,n); //se muestra el arreglo;
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000.0;
+		cout<<"\nTiempo total: "<<secs<<"\n";
+		delete a;
+		cin>>c;
+	}
+	
 	system("pause");
 	return 0;
 }
