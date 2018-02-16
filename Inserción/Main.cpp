@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 		system("pause");
 		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
 		ordenamientoInsercion(a,i,j,n); //se ordena el arreglo
-		QueryPerformanceCounter(&t_fin);
+		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
 		cout<<"Mostrando arreglo ordenado: \n";
 		mostrarArreglo(a,i,n); //se muestra el arreglo
 		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
