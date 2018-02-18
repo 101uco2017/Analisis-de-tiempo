@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	cin>>n;
 	a= new int *[n];
 	b= new int *[n];
-	c=new int *[n];
+	c= new int *[n];
 	crearMatriz(n,a,i,j);
 	crearMatriz(n,b,i,j);
 	mostrarMatriz(n, a,i,j);
@@ -73,6 +73,7 @@ void eliminarMatriz(int n, int **a,int i, int j){
 
 void multiplicar(int **a, int **b, int **c, int n,int i, int j, int k){
 	for (i=0; i<n; i++){
+		c[i]= new int[n];
 		for (j=0;j<n;j++){
 			c[i][j]=0;
 			for (k=0;k<n;k++){
