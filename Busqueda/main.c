@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 void llenarArreglo(int *a,int i,int n);
 void mostrarArreglo(int *a,int i,int n);
 double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 int busquedaBinaria(int *a, int tamano, int clave);
+
+using namespace std;
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 

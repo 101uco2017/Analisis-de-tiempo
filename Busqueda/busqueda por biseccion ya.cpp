@@ -25,19 +25,19 @@ int main(int argc, char*
 
 	
 	
-	cout<<"Ingrese el tamaño del arreglo: ";
-	cin>>n;
-	a= new int [n];
-	llenarArreglo(a,i,n);
-	cin>>j;	
+	n = 5;
+	while(n<=150){
+		a= new int [n];
+		llenarArreglo(a,i,n);	
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+		respuesta= busquedaBinaria(a,n,a[n-1]);
+		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+		cout<<"n = "<<n<<" - Tiempo total: "<<secs<<"\n";
+		delete a;
+		n+=5;
+	}
 	
-	QueryPerformanceCounter(&t_ini); //Midiendo tiempos
-	respuesta= busquedaBinaria(a,n,j);
-	QueryPerformanceCounter(&t_fin); //Midiendo tiempos
-	secs = performancecounter_diff(&t_fin,&t_ini)*1000;
-	cout<<respuesta<< endl;
-	cout<<secs;
-	delete a;
 	
 	return 0;
 	
