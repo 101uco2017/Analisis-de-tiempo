@@ -1,35 +1,40 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <windows.h>
 
-
-
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 void ordenshell (int *a, int n);
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
+	//Variables para calcular tiempos
+	LARGE_INTEGER t_ini, t_fin;
+  	double secs;
+	//
 	int *a,n,i,x;
-	cin>>n;
-	a = new int[n];
-	x= n*50;
-	for(i=0;i<n;i++){
-		a[i] = x;
-		x-=50;
+	n=50;
+	while(n<=500){
+		a = new int[n];
+		x= n*50;
+		for(i=0;i<n;i++){
+			a[i] = x;
+			x-=50;
+		}
+		
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+		ordenshell(a,n);
+		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+
+
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+		cout<<"n = "<<n<<" - Tiempo total: "<<secs<<endl;
+		delete a;
+			n+=10;
 	}
-	for(i=0;i<n;i++){
-		cout<<a[i]<<"\n";
-	}
-	cout<<"\n";
-	system("pause");
 	
-	ordenshell(a,n);
-	
-	for(i=0;i<n;i++){
-		cout<<a[i]<<"\n";
-	}
-	delete a;
 	return 0;
 }
 
@@ -46,6 +51,13 @@ void ordenshell (int *a, int n){
 		}
         a[j-1]=v;
     }
+}
+
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b)
+{
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
 }
 
 
