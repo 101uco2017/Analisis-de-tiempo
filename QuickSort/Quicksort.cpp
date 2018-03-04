@@ -20,15 +20,22 @@ int main(int argc, char *argv[]) {
   	double secs;
 	//
 	int *a,i,n;
-	cout<<"Digite la dimension del arreglo: ";
-	cin>>n;
-	a = new int[n];
-	srand(time(NULL));
-	llenarArreglo(a,n,i);
-	mostrarArreglo(a,n,i);
-	system("pause");
-	ordenRapido(a,0,n-1);
-	mostrarArreglo(a,n,i);
+	n=50;
+	while(n<=500){
+		a = new int[n];
+		srand(time(NULL));
+		llenarArreglo(a,n,i);
+		//mostrarArreglo(a,n,i);
+		//system("pause");
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+		ordenRapido(a,0,n-1);
+		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+		//mostrarArreglo(a,n,i);
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+		cout<<"n = "<<n<<" - Tiempo total: "<<secs<<"\n";
+		delete a;
+		n+=10;
+	}
 	return 0;
 }
 
