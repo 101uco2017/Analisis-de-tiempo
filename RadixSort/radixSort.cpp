@@ -29,9 +29,10 @@ using namespace std;
     	radixsort(arr, n);
     	QueryPerformanceCounter(&t_fin); //Midiendo tiempos
     	//print(arr, n);
+    	secs = performancecounter_diff(&t_fin,&t_ini)*1000;
     	cout<<n<<" Tiempo total: "<<secs<<"\n";
     	delete arr;
-    	n+=50;
+    	n+=10;
 	}
     return 0;
 }
