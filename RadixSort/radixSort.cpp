@@ -9,19 +9,30 @@ int getMax(int arr[], int n);
 void countSort(int *arr, int n, int exp);
 void radixsort(int *arr, int n);
 void print(int arr[], int n);
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 
 using namespace std;
  
  
  int main(){
+ 	LARGE_INTEGER t_ini, t_fin;
+	double secs;
 	int i,n;
-	n=10;
-    int *arr = new int[n];
-    llenarArreglo(arr,n,i);
-    print(arr, n);
-    system("pause");
-    radixsort(arr, n);
-    print(arr, n);
+	n=50;
+	while(n<=500){
+		srand (time(NULL));
+		int *arr = new int[n];
+    	llenarArreglo(arr,n,i);
+    	//print(arr, n);
+    	//system("pause");
+    	QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+    	radixsort(arr, n);
+    	QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+    	//print(arr, n);
+    	cout<<n<<" Tiempo total: "<<secs<<"\n";
+    	delete arr;
+    	n+=50;
+	}
     return 0;
 }
 
@@ -81,4 +92,11 @@ void llenarArreglo(int *a,int n,int i){
 	for(i=0;i<n;i++){
 		a[i]= 1+rand()%(501-1);
 	}
+}
+
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b)
+{
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
 }
