@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 		restar(a,n,i);
 
 		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
-		cambioresiduos (a,0,n,5);
+		cambioresiduos (a,0,n-1,5);
 		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
 		agregar(a,n,i);
 		//mostrarArreglo(a,n,i);
