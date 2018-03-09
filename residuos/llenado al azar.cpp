@@ -60,19 +60,19 @@ int unsigned  bits (int x, int k, int j){
  return (x>>k)&~(~0<<j);
 }
 
-void cambioresiduos(char a[], int izq, int der, int b)
-{ int i,j;
-   if (der>izq && b>0)
-     {i= izq; j=der;
-       while(j!=i)
-          {while(!bits(a[i],b,1) && i<j)i++;
+void cambioresiduos(char a[], int izq, int der, int b){ 
+	int i,j;
+   	if (der>izq && b>=0){
+		i= izq; j=der;
+       	while(j!=i){
+			while(!bits(a[i],b,1) && i<j)i++;
             while(bits(a[j],b,1) && j>i)j--;
-             intercambio(a, i, j);
-           }
-        if (!bits(a[i],b,1)) j++;
-            cambioresiduos(a, izq, j-1, b-1);
-            cambioresiduos(a, j, der, b-1);
-      }
+            intercambio(a, i, j);
+        }
+        if (!bits(a[der],b,1)) j++;
+        cambioresiduos(a, izq, j-1, b-1);
+        cambioresiduos(a, j, der, b-1);
+    }
 }
 void restar(char a[], int n, int i){
 	for (i=0; i<n;i++){
