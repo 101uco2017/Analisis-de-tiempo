@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <windows.h>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 
@@ -9,22 +10,34 @@ void mergelists(int a [], int start1, int end1, int start2,int end2);
 void llenarArreglo(int *a,int n,int i);
 void mostrarArreglo(int *a,int n,int i);
 void mostrarResultado(int *a,int i,int j,int k, int l);
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 using namespace std;
 int main(int argc, char** argv) {
 	srand (time(NULL));
 	int *a;
 	int n;
 	int i;
-	cin>>n;
-	a= new int [n];
-	llenarArreglo(a,n,i);
-	mostrarArreglo(a,n,i);
-	system("pause");
-	mergesort(a,0,n-1);
-	cout<<"Ordenado ";
-	mostrarArreglo(a,n,i);
+	LARGE_INTEGER t_ini, t_fin;
+  	double secs;
+	//cin>>n;
+	n=50;
+	while (n<=500){
 	
-	delete a;
+		a= new int [n];
+		llenarArreglo(a,n,i);
+		//mostrarArreglo(a,n,i);
+		//system("pause");
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+		mergesort(a,0,n-1);
+		QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+		//cout<<"Ordenado ";
+		//mostrarArreglo(a,n,i);
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+		cout<<n<<" Tiempo total: "<<secs<<"\n";
+		delete a;
+		n+=10;
+	}
+	
 	return 0;
 }
 void mergesort(int a [], int first, int last){
@@ -42,7 +55,7 @@ void mergelists(int a [], int start1, int end1, int start2,int end2){
 	int finalEnd = end2;
 	int indexC=0;
 	int i;
-	mostrarResultado(a,start1,end1,start2,end2);
+	//mostrarResultado(a,start1,end1,start2,end2);
 	while (start1<=end1 && start2<=end2){
 		if (a[start1]<a[start2]){
 			result [indexC]=a[start1];
@@ -69,12 +82,11 @@ void mergelists(int a [], int start1, int end1, int start2,int end2){
 	indexC=0;
 	for(i=finalStart;i<=finalEnd; i++){
 		a[i]=result [indexC];
-		cout<<a[i]<<" "; //mostrando resultado
+		//cout<<a[i]<<" "; //mostrando resultado
 		indexC++;
-		//mostrarArreglo(result,(end2-start1+1),i);
-		//cout<<"\n";
+	
 	}
-	cout<<endl;
+	//cout<<endl;
 }
 void llenarArreglo(int *a,int n,int i){
 	for(i=0;i<n;i++){
@@ -93,4 +105,10 @@ void mostrarResultado(int *a,int h,int j,int k, int l){
 	cout<<" <--> ";
 	for(x=k;x<=l;x++) cout<<a[x]<<" ";
 	cout<<endl;
+}
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b)
+{
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
 }
