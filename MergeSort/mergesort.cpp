@@ -8,6 +8,7 @@ void mergesort(int a [], int first, int last);
 void mergelists(int a [], int start1, int end1, int start2,int end2);
 void llenarArreglo(int *a,int n,int i);
 void mostrarArreglo(int *a,int n,int i);
+void mostrarResultado(int *a,int i,int j,int k, int l);
 using namespace std;
 int main(int argc, char** argv) {
 	srand (time(NULL));
@@ -41,6 +42,7 @@ void mergelists(int a [], int start1, int end1, int start2,int end2){
 	int finalEnd = end2;
 	int indexC=0;
 	int i;
+	mostrarResultado(a,start1,end1,start2,end2);
 	while (start1<=end1 && start2<=end2){
 		if (a[start1]<a[start2]){
 			result [indexC]=a[start1];
@@ -67,10 +69,12 @@ void mergelists(int a [], int start1, int end1, int start2,int end2){
 	indexC=0;
 	for(i=finalStart;i<=finalEnd; i++){
 		a[i]=result [indexC];
+		cout<<a[i]<<" ";
 		indexC++;
-		mostrarArreglo(result,(end2-start1+1),i);
-		cout<<"\n";
+		//mostrarArreglo(result,(end2-start1+1),i);
+		//cout<<"\n";
 	}
+	cout<<endl;
 }
 void llenarArreglo(int *a,int n,int i){
 	for(i=0;i<n;i++){
@@ -81,4 +85,12 @@ void mostrarArreglo(int *a,int n,int i){
 	for(i=0;i<n;i++){
 		cout<<a[i]<<" ";
 	}
+}
+
+void mostrarResultado(int *a,int h,int j,int k, int l){
+	int x;
+	for(x=h;x<=j;x++) cout<<a[x]<<" ";
+	cout<<" <--> ";
+	for(x=k;x<=l;x++) cout<<a[x]<<" ";
+	cout<<endl;
 }
