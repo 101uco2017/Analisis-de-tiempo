@@ -69,7 +69,7 @@ void mergelists(int a [], int start1, int end1, int start2,int end2){
 	indexC=0;
 	for(i=finalStart;i<=finalEnd; i++){
 		a[i]=result [indexC];
-		cout<<a[i]<<" ";
+		cout<<a[i]<<" "; //mostrando resultado
 		indexC++;
 		//mostrarArreglo(result,(end2-start1+1),i);
 		//cout<<"\n";
