@@ -2,9 +2,11 @@
 #include <iostream>
 #include <iterator>
 #include <time.h>
+#include <windows.h>
  
  void llenarArreglo(int *a,int n,int i);
  void mostrarArreglo(int *data, int n,int i);
+ double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
  
  using namespace std;
  
@@ -48,16 +50,29 @@ void msd_radix_sort(int *first, int *last, int msb = 31)
 // test radix_sort
 int main()
 {
-	int n=10,i;
-    int *data = new int [n];
-    srand(time(NULL));
- 	llenarArreglo(data,n,i);
- 	mostrarArreglo(data,n,i);
- 	system("pause");
-    lsd_radix_sort(data, data + n);
-    // msd_radix_sort(data, data + 8);
- 
-    std::copy(data, data + n, std::ostream_iterator<int>(std::cout, " "));
+	//Variables para calcular tiempos
+	LARGE_INTEGER t_ini, t_fin;
+  	double secs;
+	//
+	int n,i;
+	n=50;
+	while(n<=500){
+		int *data = new int [n];
+	    srand(time(NULL));
+	 	llenarArreglo(data,n,i);
+	 	//mostrarArreglo(data,n,i);
+	 	//system("pause");
+	 	QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+	    lsd_radix_sort(data, data + n);
+	    // msd_radix_sort(data, data + 8);
+	    QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+	    secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+	 	cout<<"n = "<<n<<" - Tiempo total: "<<secs<<endl;
+	 	delete data;
+	    //std::copy(data, data + n, std::ostream_iterator<int>(std::cout, " "));
+	    n+=10;
+	}
+    
     return 0;
 }
 
@@ -72,5 +87,12 @@ void mostrarArreglo(int *a,int n,int i){
 		cout<<a[i]<<" ";
 	}
 	cout<<endl;
+}
+
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b)
+{
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
 }
 
