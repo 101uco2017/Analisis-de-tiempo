@@ -6,9 +6,9 @@
 // 0. Obviamente, colocaremos una reina en cada fila
 //
 // 1. Se coloca una reina en una casilla de su fila y,
-//    a continuación, se intentan colocar las reinas restantes.
+//    a continuaciÃ³n, se intentan colocar las reinas restantes.
 //
-// 2. Si las demás reinas no se pueden colocar con éxito,
+// 2. Si las demÃ¡s reinas no se pueden colocar con Ã©xito,
 //    probamos a colocar la reina actual en otra columna.
 //
 // Caso base: Cuando no quedan reinas por colocar.
@@ -17,22 +17,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Constantes simbólicas
+// Constantes simbÃ³licas
 
 #define TRUE  1
 #define FALSE 0
 
 
-// Comprobar si una reina está bien colocada
+// Comprobar si una reina estÃ¡ bien colocada
 // -----------------------------------------
-// La reina de la fila i está bien colocada si no está
+// La reina de la fila i estÃ¡ bien colocada si no estÃ¡
 // en la columna ni en la misma diagonal que cualquiera
 // de las reinas de las filas anteriores
 //
-// Parámetros
-//   fila   - Fila de la reina cuya posición queremos validar
+// ParÃ¡metros
+//   fila   - Fila de la reina cuya posiciÃ³n queremos validar
 //   reinas - Vector con las posiciones de las reinas
-//   n      - Número de reinas
+//   n      - NÃºmero de reinas
 
 
 int comprobar (int fila, int reinas[], int n) 
@@ -50,9 +50,9 @@ int comprobar (int fila, int reinas[], int n)
 
 // Mostrar el tablero con las reinas
 // ---------------------------------
-// Parámetros:
+// ParÃ¡metros:
 //   reinas - Vector con las posiciones de las distintas reinas
-//   n      - Número de reinas
+//   n      - NÃºmero de reinas
 
 void mostrarTablero (int reinas[], int n)
 {
@@ -75,12 +75,12 @@ void mostrarTablero (int reinas[], int n)
 }
 
 
-// Colocación de una reina
+// ColocaciÃ³n de una reina
 // -----------------------
-// Parámetros
+// ParÃ¡metros
 //   fila   - Fila de la reina que queremos colocar
 //   reinas - Vector con las posiciones de las reinas
-//   n      - Número de reinas
+//   n      - NÃºmero de reinas
 
 void colocarReina (int fila, int reinas[], int n)
 {
@@ -92,12 +92,12 @@ void colocarReina (int fila, int reinas[], int n)
 
      for (reinas[fila]=0; reinas[fila]<n; reinas[fila]++) {
 
-         // Comprobamos si la posición 
-         // de la reina actual es válida
+         // Comprobamos si la posiciÃ³n 
+         // de la reina actual es vÃ¡lida
 
          if (comprobar(fila,reinas,n)) {
 
-            // Si es así, intentamos colocar
+            // Si es asÃ­, intentamos colocar
             // las reinas restantes
 
             colocarReina (fila+1, reinas, n);
@@ -106,7 +106,7 @@ void colocarReina (int fila, int reinas[], int n)
   
   } else {
 
-     // No quedan reinas por colocar (solución)
+     // No quedan reinas por colocar (soluciÃ³n)
 
      mostrarTablero(reinas,n);
   }
@@ -116,9 +116,9 @@ void colocarReina (int fila, int reinas[], int n)
 
 
 
-// Mostrar información acerca del uso del programa
+// Mostrar informaciÃ³n acerca del uso del programa
 // -----------------------------------------------
-// Parámetro:
+// ParÃ¡metro:
 //   programa - Nombre del programa
 
 void mostrarAyuda (char *programa)
@@ -127,7 +127,7 @@ void mostrarAyuda (char *programa)
   printf("\n");
   printf("  %s <n>\n", programa);
   printf("\n");
-  printf("donde <n> es el número de reinas que deseamos colocar (un mínimo de 4).\n");
+  printf("donde <n> es el nÃºmero de reinas que deseamos colocar (un mÃ­nimo de 4).\n");
   printf("\n");
 }
 
@@ -137,29 +137,27 @@ void mostrarAyuda (char *programa)
 void main (int argc, char *argv[])
 {
   int *reinas;  // Vector con las posiciones de las reinas de cada fila
-  int nreinas;  // Número de reinas
+  int nreinas;  // NÃºmero de reinas
   int i;        // Contador
 
 
-  // Leer número de reinas 
-  // (parámetro del programa)
+  // Leer nÃºmero de reinas 
+  // (parÃ¡metro del programa)
 
-  nreinas = -1;
+  cout<<"Cantidad de reinas ";
+  cin>>nreinas;
 
-  if (argc==2) 
-     nreinas = atoi(argv[1]);
+  
 
 
   // Colocar las reinas en el tablero
 
-  if (nreinas>0) {
-
-      // Crear vector dinámicamente
+      // Crear vector dinÃ¡micamente
 
       reinas = (int*) malloc ( nreinas*sizeof(int) );
 
       // Inicializar vector:
-      // (inicialmente, ninguna reina está colocada)
+      // (inicialmente, ninguna reina estÃ¡ colocada)
 
       for (i=0; i<nreinas; i++)
           reinas[i] = -1;
@@ -171,10 +169,4 @@ void main (int argc, char *argv[])
       // Liberar memoria
 
       free (reinas);
-  
-  } else {
-
-      mostrarAyuda(argv[0]);
-
-  }
 }
