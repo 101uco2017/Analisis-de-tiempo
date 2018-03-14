@@ -117,22 +117,6 @@ void colocarReina (int fila, int reinas[], int n)
 }
 
 
-
-// Mostrar información acerca del uso del programa
-// -----------------------------------------------
-// Parámetro:
-//   programa - Nombre del programa
-
-void mostrarAyuda (char *programa)
-{
-  printf("Uso del programa:\n");
-  printf("\n");
-  printf("  %s <n>\n", programa);
-  printf("\n");
-  printf("donde <n> es el número de reinas que deseamos colocar (un mínimo de 4).\n");
-  printf("\n");
-}
-
 // Programa principal
 // ------------------
 
@@ -154,21 +138,21 @@ void main (int argc, char *argv[])
 
   // Colocar las reinas en el tablero
 
-      // Crear vector dinámicamente
+  // Crear vector dinámicamente
 
-      reinas = (int*) malloc ( nreinas*sizeof(int) );
+  reinas = (int*) malloc ( nreinas*sizeof(int) );
 
-      // Inicializar vector:
-      // (inicialmente, ninguna reina está colocada)
+   // Inicializar vector:
+   // (inicialmente, ninguna reina está colocada)
 
-      for (i=0; i<nreinas; i++)
-          reinas[i] = -1;
+   for (i=0; i<nreinas; i++)
+        reinas[i] = -1;
 
-      // Colocar reinas (algoritmo recursivo)
+   // Colocar reinas (algoritmo recursivo)
 
-      colocarReina(0,reinas,nreinas);
+   colocarReina(0,reinas,nreinas);
 
-      // Liberar memoria
+    // Liberar memoria
 
       free (reinas);
 }
