@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+using namespace std;
+
 // Constantes simbólicas
 
 #define TRUE  1
