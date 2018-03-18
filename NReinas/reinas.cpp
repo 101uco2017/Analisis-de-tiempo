@@ -17,44 +17,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
 void colocarReina (int fila, int reinas[], int n);
 int comprobar (int fila, int reinas[], int n);
 void mostrarTablero (int reinas[], int n);
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b);
 
 // Programa principal
 // ------------------
 
 int main (){
+	//Variables para calcular tiempos
+	LARGE_INTEGER t_ini, t_fin;
+  	double secs;
+	//
+	
 	int *reinas;  // Vector con las posiciones de las reinas de cada fila
   	int nreinas;  // Número de reinas
   	int i;        // Contador
 	// Leer número de reinas 
 
-	cout<<"Cantidad de reinas ";
-  	cin>>nreinas;
+	//cout<<"Cantidad de reinas ";
+  	nreinas=1;
+  	while(nreinas<=500){
+  		// Colocar las reinas en el tablero
+		// Crear vector dinámicamente
+	
+	  	reinas = (int*) malloc ( nreinas*sizeof(int) );
+	
+	   // Inicializar vector:
+	   // (inicialmente, ninguna reina está colocada)
+	
+	   for (i=0; i<nreinas; i++)
+	        reinas[i] = -1;
+	
+	   // Colocar reinas (algoritmo recursivo)
+		QueryPerformanceCounter(&t_ini); //Midiendo tiempos
+	   	colocarReina(0,reinas,nreinas);
+	   	QueryPerformanceCounter(&t_fin); //Midiendo tiempos
+	
+		secs = performancecounter_diff(&t_fin,&t_ini)*1000;
+		cout<<"n = "<<nreinas<<" - Tiempo total: "<<secs<<"\n";
+	
+	    // Liberar memoria
+	
+		//mostrarTablero(reinas,nreinas);
+	    delete reinas;
+	    nreinas++;
+	}
 
-  	// Colocar las reinas en el tablero
-	// Crear vector dinámicamente
-
-  	reinas = (int*) malloc ( nreinas*sizeof(int) );
-
-   // Inicializar vector:
-   // (inicialmente, ninguna reina está colocada)
-
-   for (i=0; i<nreinas; i++)
-        reinas[i] = -1;
-
-   // Colocar reinas (algoritmo recursivo)
-
-   colocarReina(0,reinas,nreinas);
-
-    // Liberar memoria
-
-	mostrarTablero(reinas,nreinas);
-    delete reinas;
+  	
     return 0;
 }
 
@@ -88,7 +103,7 @@ void colocarReina (int fila, int reinas[], int n){
 
      // No quedan reinas por colocar (solución)
 
-     mostrarTablero(reinas,n);
+     //mostrarTablero(reinas,n);
   }
 }
 
@@ -145,7 +160,11 @@ void mostrarTablero (int reinas[], int n)
   printf("\n");
 }
 
-
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b){
+	LARGE_INTEGER freq;
+  	QueryPerformanceFrequency(&freq);
+  	return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
+}
 
 
 
